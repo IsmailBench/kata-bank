@@ -9,7 +9,6 @@ public class TransactionApiConverter {
 
 
     public static TransactionResponse toTransactionResponse(final Transaction transaction){
-        TransactionResponse test = new TransactionResponse(transaction.getAmount(), transaction.getTransactionType(), transaction.getBalance(), transaction.getCreatedAt());
         return new TransactionResponse(transaction.getAmount(), transaction.getTransactionType(), transaction.getBalance(), transaction.getCreatedAt());
     }
 
