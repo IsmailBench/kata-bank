@@ -1,0 +1,1 @@
+INSERT into account(ACCOUNT_ID ,BALANCE ,CREATE_AT ,NAME ) values ('f6fd9a4e-31de-11ed-a261-0242ac120005', 5000,' 2012-09-16 18:04:16', 'Paul')
