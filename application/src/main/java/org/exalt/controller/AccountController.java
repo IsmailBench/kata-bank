@@ -37,7 +37,7 @@ public class AccountController {
         return ResponseEntity.ok(AccountApiConverter.toAccountResponse(accountService.getAccount(id)));
     }
 
-    @GetMapping("/{id}/transaction/")
+    @GetMapping("/{id}/transaction")
     public ResponseEntity<Set<TransactionResponse>> getTransaction(@PathVariable UUID id) {
         log.info("Retrieve transaction");
         ResponseEntity.status(HttpStatus.OK);
@@ -47,7 +47,7 @@ public class AccountController {
                 .collect(Collectors.toSet()));
     }
 
-    @PostMapping("/{id}/transaction/deposit/")
+    @PostMapping("/{id}/transaction/deposit")
     ResponseEntity<String> deposit(@PathVariable UUID id, @RequestBody DepositRequest depositRequest) {
         log.info("Retrieve deposit");
         depositService.deposit(id, depositRequest.getAmount());
@@ -55,7 +55,7 @@ public class AccountController {
         return ResponseEntity.ok("deposit done");
     }
 
-    @PostMapping("/{id}/transaction/withdraw/")
+    @PostMapping("/{id}/transaction/withdraw")
     ResponseEntity<String> withdraw(@PathVariable UUID id, @RequestBody WithdrawRequest withdrawRequest) {
         log.info("Retrieve transaction");
         withdrawService.withdraw(id, withdrawRequest.getAmount());
