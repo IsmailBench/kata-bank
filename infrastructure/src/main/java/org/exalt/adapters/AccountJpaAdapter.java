@@ -1,12 +1,12 @@
-package adapters;
+package org.exalt.adapters;
 
 import lombok.RequiredArgsConstructor;
 import org.exalt.entities.AccountEntity;
 import org.exalt.entities.TransactionEntity;
 import org.exalt.model.intf.Account;
 import org.exalt.port.driven.AccountPersistencePort;
+import org.exalt.repository.AccountEntityJpaRepository;
 import org.modelmapper.ModelMapper;
-import repository.AccountEntityJpaRepository;
 
 import java.util.Optional;
 import java.util.Set;

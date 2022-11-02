@@ -1,4 +1,4 @@
-package repository;
+package org.exalt.repository;
 
 import org.exalt.entities.AccountEntity;
 
