@@ -7,6 +7,7 @@ import org.exalt.model.intf.Account;
 import org.exalt.port.driven.AccountPersistencePort;
 import org.exalt.repository.AccountEntityJpaRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 import java.util.Set;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
  */
 
 @RequiredArgsConstructor
+@Repository
 public class AccountJpaAdapter implements AccountPersistencePort {
 
     private final AccountEntityJpaRepository repository;
