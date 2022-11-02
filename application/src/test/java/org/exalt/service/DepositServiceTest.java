@@ -1,12 +1,11 @@
 
-package service;
-
-import org.exalt.model.impl.Account;
+package org.exalt.service;
 
 
+import org.exalt.model.impl.AccountImpl;
+import org.exalt.model.intf.Account;
 import org.exalt.port.driven.AccountPersistencePort;
-import org.exalt.port.driving.AccountUseCase;
-import org.exalt.service.AccountService;
+import org.exalt.port.driving.DepositUseCase;
 
 
 import org.junit.jupiter.api.BeforeEach;
@@ -20,27 +19,28 @@ import java.util.Optional;
 import java.util.UUID;
 
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class AccountServiceTest {
+public class DepositServiceTest {
     @MockBean
     private AccountPersistencePort repository;
     @MockBean
-    private AccountUseCase service;
+    private DepositUseCase service;
     @BeforeEach
     void init(){
         repository = mock(AccountPersistencePort.class);
-        service = new AccountService(repository);
+        service = new DepositService(repository);
     }
     @Test
-    public void should_return_bankaccount() {
+    public void should_deposit_and_add_transaction() {
         UUID id = UUID.randomUUID();
-        Account account = new Account(id, "Paul", new BigDecimal(1000), Instant.now(), new HashSet<>());
+        Account account = new AccountImpl(id, "Paul", new BigDecimal(1000), Instant.now(), new HashSet<>());
         when(repository.findAccount(id)).thenReturn(Optional.of(account));
-        org.exalt.model.intf.Account testAccount = service.getAccount(id);
-        assertNotNull(testAccount);
+        service.deposit(id, new BigDecimal(500));
+        assertEquals(account.getBalance(), new BigDecimal(1500));
+        assertEquals(account.getTransactionHistory().size(), 1);
     }
 
 }

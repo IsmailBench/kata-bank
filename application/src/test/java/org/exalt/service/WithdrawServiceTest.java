@@ -1,10 +1,10 @@
 
-package service;
+package org.exalt.service;
 
-import org.exalt.model.impl.Account;
+import org.exalt.model.impl.AccountImpl;
+import org.exalt.model.intf.Account;
 import org.exalt.port.driven.AccountPersistencePort;
 import org.exalt.port.driving.WithdrawUseCase;
-import org.exalt.service.WithdrawService;
 
 
 import org.junit.jupiter.api.BeforeEach;
@@ -38,7 +38,7 @@ public class WithdrawServiceTest {
     @Test
     public void should_withdraw_when_amount_is_lower_than_balance_and_add_transaction() {
         UUID id = UUID.randomUUID();
-        Account account = new Account(id, "Paul", new BigDecimal(1000), Instant.now(), new HashSet<>());
+        Account account = new AccountImpl(id, "Paul", new BigDecimal(1000), Instant.now(), new HashSet<>());
         when(repository.findAccount(id)).thenReturn(Optional.of(account));
         repository.update(account);
         service.withdraw(account.getId(), new BigDecimal(500));
