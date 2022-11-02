@@ -14,7 +14,7 @@ public interface Account {
     Set<Transaction> getTransactionHistory();
     void addTransaction(Transaction transaction);
     void checkAmount(BigDecimal amount) throws NegativeAmountInTransactionException;
-    void checkAmountInWithdraw(BigDecimal amount) throws AmountGreaterThanBalanceInTransactionException;
+    void checkBalance(BigDecimal amount) throws AmountGreaterThanBalanceInTransactionException;
     void deposit(BigDecimal amount) throws NegativeAmountInTransactionException;
     void withdraw(BigDecimal amount) throws NegativeAmountInTransactionException, AmountGreaterThanBalanceInTransactionException;
 }

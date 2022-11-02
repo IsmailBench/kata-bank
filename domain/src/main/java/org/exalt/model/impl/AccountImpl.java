@@ -66,7 +66,7 @@ public class AccountImpl implements Account {
      * @throws AmountGreaterThanBalanceInTransactionException if amount is greater than balance throw exception
      */
     @Override
-    public void checkAmountInWithdraw(BigDecimal amount) throws AmountGreaterThanBalanceInTransactionException {
+    public void checkBalance(BigDecimal amount) throws AmountGreaterThanBalanceInTransactionException {
         if(amount.compareTo(balance) > 0 ){
             throw new AmountGreaterThanBalanceInTransactionException();
         }
@@ -88,7 +88,7 @@ public class AccountImpl implements Account {
     @Override
     public void withdraw(BigDecimal amount) throws NegativeAmountInTransactionException, AmountGreaterThanBalanceInTransactionException{
         checkAmount(amount);
-        checkAmountInWithdraw(amount);
+        checkBalance(amount);
         if(amount.compareTo(balance) == -1 ){
             balance = balance.subtract(amount);
         }
