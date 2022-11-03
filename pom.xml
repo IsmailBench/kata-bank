@@ -12,6 +12,13 @@
         <module>infrastructure</module>
         <module>application</module>
     </modules>
+    <dependencies>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+    </dependencies>
     <properties>
         <maven.compiler.source>19</maven.compiler.source>
         <maven.compiler.target>19</maven.compiler.target>
