@@ -3,6 +3,7 @@ package org.exalt.configuration;
 
 import lombok.extern.slf4j.Slf4j;
 import org.exalt.exceptions.AccountNotFoundException;
+import org.exalt.exceptions.AmountGreaterThanBalanceInTransactionException;
 import org.exalt.exceptions.NegativeAmountInTransactionException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +32,15 @@ public class ControllerExceptionHandler {
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", Instant.now());
         body.put("message", negativeAmountInOperationException.getMessage());
+        log.error("ControllerExceptionHandler::NegativeAmountInOperationException : Negative amount exception");
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = {AmountGreaterThanBalanceInTransactionException.class})
+    public ResponseEntity<Object> amountGreaterThanBalanceInTransactionException(AmountGreaterThanBalanceInTransactionException amountGreaterThanBalanceInTransactionException) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("timestamp", Instant.now());
+        body.put("message", amountGreaterThanBalanceInTransactionException.getMessage());
         log.error("ControllerExceptionHandler::NegativeAmountInOperationException : Negative amount exception");
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
