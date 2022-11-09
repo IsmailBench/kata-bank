@@ -1,21 +1,21 @@
 package org.exalt.dto;
 
 import lombok.Data;
-import org.exalt.model.impl.TransactionType;
+import org.exalt.model.impl.OperationType;
 
 import java.math.BigDecimal;
 import java.time.Instant;
 
 @Data
-public class TransactionResponse {
+public class OperationResponse {
     private final BigDecimal amount;
-    private final TransactionType typeTransaction;
+    private final OperationType typeOperation;
     private final Instant createAt;
     private final BigDecimal balance;
 
-    public TransactionResponse(BigDecimal amount, TransactionType transactionType, BigDecimal balance, Instant createdAt) {
+    public OperationResponse(BigDecimal amount, OperationType operationType, BigDecimal balance, Instant createdAt) {
         this.amount = amount;
-        this.typeTransaction = transactionType;
+        this.typeOperation = operationType;
         this.balance = balance;
         this.createAt = createdAt;
     }

@@ -3,8 +3,8 @@ package org.exalt.configuration;
 
 import lombok.extern.slf4j.Slf4j;
 import org.exalt.exceptions.AccountNotFoundException;
-import org.exalt.exceptions.AmountGreaterThanBalanceInTransactionException;
-import org.exalt.exceptions.NegativeAmountInTransactionException;
+import org.exalt.exceptions.AmountGreaterThanBalanceInOperationException;
+import org.exalt.exceptions.NegativeAmountInOperationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -27,8 +27,8 @@ public class ControllerExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(value = {NegativeAmountInTransactionException.class})
-    public ResponseEntity<Object> negativeAmountInOperationException(NegativeAmountInTransactionException negativeAmountInOperationException) {
+    @ExceptionHandler(value = {NegativeAmountInOperationException.class})
+    public ResponseEntity<Object> negativeAmountInOperationException(NegativeAmountInOperationException negativeAmountInOperationException) {
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", Instant.now());
         body.put("message", negativeAmountInOperationException.getMessage());
@@ -36,11 +36,11 @@ public class ControllerExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(value = {AmountGreaterThanBalanceInTransactionException.class})
-    public ResponseEntity<Object> amountGreaterThanBalanceInTransactionException(AmountGreaterThanBalanceInTransactionException amountGreaterThanBalanceInTransactionException) {
+    @ExceptionHandler(value = {AmountGreaterThanBalanceInOperationException.class})
+    public ResponseEntity<Object> amountGreaterThanBalanceInOperationException(AmountGreaterThanBalanceInOperationException amountGreaterThanBalanceInOperationException) {
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", Instant.now());
-        body.put("message", amountGreaterThanBalanceInTransactionException.getMessage());
+        body.put("message", amountGreaterThanBalanceInOperationException.getMessage());
         log.error("ControllerExceptionHandler::NegativeAmountInOperationException : Negative amount exception");
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }

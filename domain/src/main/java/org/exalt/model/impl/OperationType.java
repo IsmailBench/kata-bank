@@ -1,5 +1,5 @@
 package org.exalt.model.impl;
 
-public enum TransactionType{
+public enum OperationType{
     DEPOSIT,WITHDRAW
 }

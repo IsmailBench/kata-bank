@@ -4,12 +4,12 @@ package org.exalt.service;
 import lombok.RequiredArgsConstructor;
 import org.exalt.exceptions.AccountNotFoundException;
 import org.exalt.model.intf.Account;
-import org.exalt.model.intf.Transaction;
+import org.exalt.model.intf.Operation;
 import org.exalt.port.driven.AccountPersistencePort;
 import org.exalt.port.driving.AccountUseCase;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -35,9 +35,9 @@ public class AccountService implements AccountUseCase {
 
     @Override
     @Transactional
-    public Set<Transaction> getTransactions(UUID id) {
+    public Set<Operation> getOperations(UUID id) {
         return repository.findAccount(id)
-                .map(Account::getTransactionHistory)
+                .map(Account::getOperationHistory)
                 .stream()
                 .flatMap(Set::stream).collect(Collectors.toSet());
     }

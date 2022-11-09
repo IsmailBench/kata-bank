@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.exalt.model.intf.Transaction;
+import org.exalt.model.intf.Operation;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -14,11 +14,11 @@ import java.util.UUID;
 @AllArgsConstructor
 @Getter
 @Setter
-public class TransactionImpl implements Transaction {
+public class OperationImpl implements Operation {
 
-    private UUID transactionId;
+    private UUID operationId;
     private BigDecimal amount;
-    private TransactionType typeTransaction;
+    private OperationType typeOperation;
     private Instant createAt;
     private BigDecimal balance;
 
@@ -38,7 +38,7 @@ public class TransactionImpl implements Transaction {
     }
 
     @Override
-    public TransactionType getTransactionType() {
-        return typeTransaction;
+    public OperationType getOperationType() {
+        return typeOperation;
     }
 }

@@ -34,13 +34,13 @@ public class DepositServiceTest {
         service = new DepositService(repository);
     }
     @Test
-    public void should_deposit_and_add_transaction() {
+    public void should_deposit_and_add_operation() {
         UUID id = UUID.randomUUID();
         Account account = new AccountImpl(id, "Paul", new BigDecimal(1000), Instant.now(), new HashSet<>());
         when(repository.findAccount(id)).thenReturn(Optional.of(account));
         service.deposit(id, new BigDecimal(500));
         assertEquals(account.getBalance(), new BigDecimal(1500));
-        assertEquals(account.getTransactionHistory().size(), 1);
+        assertEquals(account.getOperationHistory().size(), 1);
     }
 
 }

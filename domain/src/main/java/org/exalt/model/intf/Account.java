@@ -1,7 +1,7 @@
 package org.exalt.model.intf;
 
-import org.exalt.exceptions.AmountGreaterThanBalanceInTransactionException;
-import org.exalt.exceptions.NegativeAmountInTransactionException;
+import org.exalt.exceptions.AmountGreaterThanBalanceInOperationException;
+import org.exalt.exceptions.NegativeAmountInOperationException;
 
 import java.math.BigDecimal;
 import java.util.Set;
@@ -11,10 +11,10 @@ public interface Account {
     UUID getId();
     BigDecimal getBalance();
     String getName();
-    Set<Transaction> getTransactionHistory();
-    void addTransaction(Transaction transaction);
-    void checkAmount(BigDecimal amount) throws NegativeAmountInTransactionException;
-    void checkBalance(BigDecimal amount) throws AmountGreaterThanBalanceInTransactionException;
-    void deposit(BigDecimal amount) throws NegativeAmountInTransactionException;
-    void withdraw(BigDecimal amount) throws NegativeAmountInTransactionException, AmountGreaterThanBalanceInTransactionException;
+    Set<Operation> getOperationHistory();
+    void addOperation(Operation operation);
+    void checkAmount(BigDecimal amount) throws NegativeAmountInOperationException;
+    void checkBalance(BigDecimal amount) throws AmountGreaterThanBalanceInOperationException;
+    void deposit(BigDecimal amount) throws NegativeAmountInOperationException;
+    void withdraw(BigDecimal amount) throws NegativeAmountInOperationException, AmountGreaterThanBalanceInOperationException;
 }

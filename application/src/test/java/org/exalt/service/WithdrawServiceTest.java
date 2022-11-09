@@ -36,14 +36,14 @@ public class WithdrawServiceTest {
     }
 
     @Test
-    public void should_withdraw_when_amount_is_lower_than_balance_and_add_transaction() {
+    public void should_withdraw_when_amount_is_lower_than_balance_and_add_operation() {
         UUID id = UUID.randomUUID();
         Account account = new AccountImpl(id, "Paul", new BigDecimal(1000), Instant.now(), new HashSet<>());
         when(repository.findAccount(id)).thenReturn(Optional.of(account));
         repository.update(account);
         service.withdraw(account.getId(), new BigDecimal(500));
         assertEquals(account.getBalance(), new BigDecimal(500));
-        assertEquals(account.getTransactionHistory().size(), 1);
+        assertEquals(account.getOperationHistory().size(), 1);
     }
 
 

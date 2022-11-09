@@ -2,14 +2,14 @@ package org.exalt.service;
 
 import lombok.RequiredArgsConstructor;
 
-import org.exalt.model.impl.TransactionImpl;
-import org.exalt.model.impl.TransactionType;
-import org.exalt.model.intf.Transaction;
+import org.exalt.model.impl.OperationImpl;
+import org.exalt.model.impl.OperationType;
+import org.exalt.model.intf.Operation;
 import org.exalt.port.driven.AccountPersistencePort;
 import org.exalt.port.driving.DepositUseCase;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.UUID;
@@ -25,8 +25,8 @@ public class DepositService implements DepositUseCase {
     public void deposit(UUID id, BigDecimal amount) {
         repository.findAccount(id).ifPresent(account -> {
             account.deposit(amount);
-            Transaction t = new TransactionImpl(UUID.randomUUID(), amount, TransactionType.DEPOSIT, Instant.now(), account.getBalance().subtract(amount));
-            account.addTransaction(t);
+            Operation t = new OperationImpl(UUID.randomUUID(), amount, OperationType.DEPOSIT, Instant.now(), account.getBalance().subtract(amount));
+            account.addOperation(t);
             repository.update(account);
         });
     }

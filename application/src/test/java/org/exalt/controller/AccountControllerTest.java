@@ -38,8 +38,8 @@ public class AccountControllerTest {
 
 
     @Test
-    public void should_get_transaction_history_by_id() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/account/{id}/transaction",
+    public void should_get_operation_history_by_id() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/account/{id}/operation",
                         UUID.fromString("f6fd9a4e-31de-11ed-a261-0242ac120005"))
                 .contentType("application/json"))
                 .andExpect(status().isOk());
@@ -50,7 +50,7 @@ public class AccountControllerTest {
         DepositRequest depositRequest = new DepositRequest();
         depositRequest.setAmount(new BigDecimal(1000));
         depositRequest.setId(UUID.fromString("f6fd9a4e-31de-11ed-a261-0242ac120005"));
-        mockMvc.perform(MockMvcRequestBuilders.post("/account/{id}/transaction/deposit",
+        mockMvc.perform(MockMvcRequestBuilders.post("/account/{id}/operation/deposit",
                                 UUID.fromString("f6fd9a4e-31de-11ed-a261-0242ac120005"))
                         .contentType("application/json")
                         .content(objectMapper.writeValueAsString(depositRequest)))
@@ -62,7 +62,7 @@ public class AccountControllerTest {
         WithdrawRequest withdrawRequest = new WithdrawRequest();
         withdrawRequest.setAmount(new BigDecimal(1000));
         withdrawRequest.setId(UUID.fromString("f6fd9a4e-31de-11ed-a261-0242ac120005"));
-        mockMvc.perform(MockMvcRequestBuilders.post("/account/{id}/transaction/withdraw",
+        mockMvc.perform(MockMvcRequestBuilders.post("/account/{id}/operation/withdraw",
                                 UUID.fromString("f6fd9a4e-31de-11ed-a261-0242ac120005"))
                         .contentType("application/json")
                         .content(objectMapper.writeValueAsString(withdrawRequest)))

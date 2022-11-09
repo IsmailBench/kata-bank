@@ -1,13 +1,13 @@
 package org.exalt.service;
 
 import lombok.RequiredArgsConstructor;
-import org.exalt.model.impl.TransactionImpl;
-import org.exalt.model.impl.TransactionType;
+import org.exalt.model.impl.OperationImpl;
+import org.exalt.model.impl.OperationType;
 import org.exalt.port.driven.AccountPersistencePort;
 import org.exalt.port.driving.WithdrawUseCase;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.UUID;
@@ -23,8 +23,8 @@ public class WithdrawService implements WithdrawUseCase {
     public void withdraw(UUID id, BigDecimal amount) {
         repository.findAccount(id).ifPresent(account -> {
             account.withdraw(amount);
-            TransactionImpl t = new TransactionImpl(UUID.randomUUID(), amount, TransactionType.WITHDRAW, Instant.now(), account.getBalance().add(amount));
-            account.addTransaction(t);
+            OperationImpl t = new OperationImpl(UUID.randomUUID(), amount, OperationType.WITHDRAW, Instant.now(), account.getBalance().add(amount));
+            account.addOperation(t);
             repository.update(account);
         });
     }

@@ -1,8 +1,8 @@
 package org.exalt.model;
 
 
-import org.exalt.exceptions.AmountGreaterThanBalanceInTransactionException;
-import org.exalt.exceptions.NegativeAmountInTransactionException;
+import org.exalt.exceptions.AmountGreaterThanBalanceInOperationException;
+import org.exalt.exceptions.NegativeAmountInOperationException;
 import org.exalt.model.impl.AccountImpl;
 import org.exalt.model.intf.Account;
 import org.junit.jupiter.api.Test;
@@ -23,34 +23,34 @@ public class AccountImplTest {
     public void should_not_withdraw_when_amount_is_greater_than_balance() {
         UUID id = UUID.randomUUID();
         Account account = new AccountImpl(id, "Paul", new BigDecimal(1000), Instant.now(), new HashSet<>());
-        assertThrows(AmountGreaterThanBalanceInTransactionException.class , () -> account.withdraw(new BigDecimal(50000)));
+        assertThrows(AmountGreaterThanBalanceInOperationException.class , () -> account.withdraw(new BigDecimal(50000)));
     }
 
     @Test
     public void should_not_withdraw_when_amount_is_negative() {
         UUID id = UUID.randomUUID();
         Account account = new AccountImpl(id, "Paul", new BigDecimal(1000), Instant.now(), new HashSet<>());
-        assertThrows(NegativeAmountInTransactionException.class , () -> account.withdraw(new BigDecimal(-50000)));
+        assertThrows(NegativeAmountInOperationException.class , () -> account.withdraw(new BigDecimal(-50000)));
     }
 
     @Test
     public void should_not_withdraw_when_amount_is_zero() {
         UUID id = UUID.randomUUID();
         Account account = new AccountImpl(id, "Paul", new BigDecimal(1000), Instant.now(), new HashSet<>());
-        assertThrows(NegativeAmountInTransactionException.class , () -> account.withdraw(new BigDecimal(0)));
+        assertThrows(NegativeAmountInOperationException.class , () -> account.withdraw(new BigDecimal(0)));
     }
 
     @Test
     public void should_not_deposit_when_amount_is_zero() {
         UUID id = UUID.randomUUID();
         Account account = new AccountImpl(id, "Paul", new BigDecimal(1000), Instant.now(), new HashSet<>());
-        assertThrows(NegativeAmountInTransactionException.class , () -> account.deposit(new BigDecimal(0)));
+        assertThrows(NegativeAmountInOperationException.class , () -> account.deposit(new BigDecimal(0)));
     }
     @Test
     public void should_not_deposit_when_amount_is_negative() {
         UUID id = UUID.randomUUID();
         Account account = new AccountImpl(id, "Paul", new BigDecimal(1000), Instant.now(), new HashSet<>());
-        assertThrows(NegativeAmountInTransactionException.class , () -> account.deposit(new BigDecimal(-50000)));
+        assertThrows(NegativeAmountInOperationException.class , () -> account.deposit(new BigDecimal(-50000)));
     }
 
     @Test

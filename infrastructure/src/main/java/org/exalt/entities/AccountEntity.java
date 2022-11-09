@@ -30,10 +30,10 @@ public class AccountEntity {
     private Instant createAt;
     @OneToMany(cascade = CascadeType.MERGE)
     @JoinColumn(name = "account")
-    private Set<TransactionEntity> transactionEntities;
+    private Set<OperationEntity> operationEntities;
 
     public static Account toDomain(AccountEntity accountEntity){
         return new AccountImpl(accountEntity.getAccountId(),accountEntity.getName(), accountEntity.getBalance(),
-                accountEntity.getCreateAt(), accountEntity.getTransactionEntities().stream().map(TransactionEntity::toDomain).collect(Collectors.toSet()));
+                accountEntity.getCreateAt(), accountEntity.getOperationEntities().stream().map(OperationEntity::toDomain).collect(Collectors.toSet()));
     }
 }

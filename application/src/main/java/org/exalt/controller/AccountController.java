@@ -3,10 +3,10 @@ package org.exalt.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.exalt.converter.AccountApiConverter;
-import org.exalt.converter.TransactionApiConverter;
+import org.exalt.converter.OperationApiConverter;
 import org.exalt.dto.AccountResponse;
 import org.exalt.dto.DepositRequest;
-import org.exalt.dto.TransactionResponse;
+import org.exalt.dto.OperationResponse;
 import org.exalt.dto.WithdrawRequest;
 import org.exalt.service.AccountService;
 import org.exalt.service.DepositService;
@@ -37,17 +37,17 @@ public class AccountController {
         return ResponseEntity.ok(AccountApiConverter.toAccountResponse(accountService.getAccount(id)));
     }
 
-    @GetMapping("/{id}/transaction")
-    public ResponseEntity<Set<TransactionResponse>> getTransaction(@PathVariable UUID id) {
-        log.info("Retrieve transaction");
+    @GetMapping("/{id}/operation")
+    public ResponseEntity<Set<OperationResponse>> getOperation(@PathVariable UUID id) {
+        log.info("Retrieve operation");
         ResponseEntity.status(HttpStatus.OK);
-        return ResponseEntity.ok(accountService.getTransactions(id)
+        return ResponseEntity.ok(accountService.getOperations(id)
                 .stream()
-                .map(TransactionApiConverter::toTransactionResponse)
+                .map(OperationApiConverter::toOperationResponse)
                 .collect(Collectors.toSet()));
     }
 
-    @PostMapping("/{id}/transaction/deposit")
+    @PostMapping("/{id}/operation/deposit")
     ResponseEntity<String> deposit(@PathVariable UUID id, @RequestBody DepositRequest depositRequest) {
         log.info("Retrieve deposit");
         depositService.deposit(id, depositRequest.getAmount());
@@ -55,9 +55,9 @@ public class AccountController {
         return ResponseEntity.ok("deposit done");
     }
 
-    @PostMapping("/{id}/transaction/withdraw")
+    @PostMapping("/{id}/operation/withdraw")
     ResponseEntity<String> withdraw(@PathVariable UUID id, @RequestBody WithdrawRequest withdrawRequest) {
-        log.info("Retrieve transaction");
+        log.info("Retrieve operation");
         withdrawService.withdraw(id, withdrawRequest.getAmount());
         ResponseEntity.status(HttpStatus.OK);
         return ResponseEntity.ok("withdraw done");

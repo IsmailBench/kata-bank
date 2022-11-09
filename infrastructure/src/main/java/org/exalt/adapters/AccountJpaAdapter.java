@@ -2,7 +2,7 @@ package org.exalt.adapters;
 
 import lombok.RequiredArgsConstructor;
 import org.exalt.entities.AccountEntity;
-import org.exalt.entities.TransactionEntity;
+import org.exalt.entities.OperationEntity;
 import org.exalt.model.intf.Account;
 import org.exalt.port.driven.AccountPersistencePort;
 import org.exalt.repository.AccountEntityJpaRepository;
@@ -43,11 +43,11 @@ public class AccountJpaAdapter implements AccountPersistencePort {
     @Override
     public void update(Account account) {
         AccountEntity accountEntity = modelMapper.map(account, AccountEntity.class);
-        Set<TransactionEntity> transactions = account.getTransactionHistory()
+        Set<OperationEntity> operations = account.getOperationHistory()
                         .stream()
-                        .map(transaction -> modelMapper.map(transaction, TransactionEntity.class))
+                        .map(operation -> modelMapper.map(operation, OperationEntity.class))
                         .collect(Collectors.toSet());
-        accountEntity.setTransactionEntities(transactions);
+        accountEntity.setOperationEntities(operations);
         repository.save(accountEntity);
 
     }
